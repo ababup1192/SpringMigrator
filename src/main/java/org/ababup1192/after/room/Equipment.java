@@ -1,22 +1,21 @@
 package org.ababup1192.after.room;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class Equipment implements Serializable {
     @Id
     @GeneratedValue
+    @Column(name = "equipment_id")
     private Integer equipmentId;
 
+    @Column
     private String equipmentName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "room_id")
-    @JsonIgnore
-    private Room room;
+    @ManyToMany(mappedBy = "equipments")
+    private List<Room> rooms;
 
     public Equipment() {
     }
@@ -25,9 +24,9 @@ public class Equipment implements Serializable {
         this.equipmentName = equipmentName;
     }
 
-    public Equipment(String equipmentName, Room room) {
+    public Equipment(String equipmentName, List<Room> room) {
         this.equipmentName = equipmentName;
-        this.room = room;
+        this.rooms = room;
     }
 
     public Equipment(Integer equipmentId, String equipmentName) {
@@ -43,8 +42,8 @@ public class Equipment implements Serializable {
         return equipmentName;
     }
 
-    public Room getRoom() {
-        return room;
+    public List<Room> getRooms() {
+        return rooms;
     }
 
     public void setEquipmentId(Integer equipmentId) {
@@ -55,8 +54,8 @@ public class Equipment implements Serializable {
         this.equipmentName = equipmentName;
     }
 
-    public void setRoom(Room room) {
-        this.room = room;
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
     }
 
     @Override

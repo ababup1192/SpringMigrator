@@ -1,20 +1,30 @@
 package org.ababup1192.after.room;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@Table(name = "room")
 public class Room implements Serializable {
     @Id
     @GeneratedValue
+    @Column(name = "room_id")
     private Integer roomId;
 
+    @NotNull
+    @Column(unique = true)
     private String roomName;
 
     private Integer capacity;
 
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "quota",
+            joinColumns = {@JoinColumn(name = "room_id", referencedColumnName = "room_id")},
+            inverseJoinColumns = {@JoinColumn(name = "equipment_id", referencedColumnName = "equipment_id")}
+    )
     private List<Equipment> equipments;
 
     public Room() {

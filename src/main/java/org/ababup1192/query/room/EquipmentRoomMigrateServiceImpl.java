@@ -6,6 +6,7 @@ import org.ababup1192.before.room.EquipmentRoomRepository;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -39,13 +40,28 @@ public class EquipmentRoomMigrateServiceImpl implements EquipmentRoomMigrateServ
             int capacity = equipmentRooms.get(0).getCapacity();
 
             List<Equipment> equipments = equipmentRooms.stream()
-                    .map(equipmentRoom -> new Equipment(equipmentRoom.getEquipmentName()))
+                    .map(equipmentRoom -> new Equipment(equipmentRoom.getEquipmentName())) // this.createEquipment(equipmentRoom.getEquipmentName()))
                     .collect(Collectors.toList());
 
-            Room room = roomRepository.save(new Room(roomName, capacity));
-            equipments.forEach(equipment -> equipment.setRoom(room));
+            /*
             equipmentRepository.save(equipments);
-        });
+            roomRepository.save(new Room(roomName, capacity, equipments));
+            */
+            // equipmentRepository.save(equipments);
+            roomRepository.save(new Room(roomName, capacity, equipments));
 
+            // equipments.forEach(equipment -> equipment.setRoomFk(Arrays.asList(room)));
+            // equipmentRepository.save(equipments);
+            System.out.println(roomRepository.findAll());
+
+        });
+    }
+
+    // もし、すでに存在するEquipmentなら、それを返す。
+    private Equipment createEquipment(String equipmentName) {
+        Equipment equipment = equipmentRepository.findByEquipmentName(equipmentName).stream().
+                findFirst().orElseGet(() -> new Equipment(equipmentName));
+        equipment.setRooms(null);
+        return equipment;
     }
 }
