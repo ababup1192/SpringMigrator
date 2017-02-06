@@ -11,7 +11,7 @@ public class Equipment implements Serializable {
     @Column(name = "equipment_id")
     private Integer equipmentId;
 
-    @Column
+    @Column(unique = true)
     private String equipmentName;
 
     @ManyToMany(mappedBy = "equipments")
