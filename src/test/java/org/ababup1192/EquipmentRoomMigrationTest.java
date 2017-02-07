@@ -1,12 +1,12 @@
 package org.ababup1192;
 
-import org.ababup1192.after.RoomService;
-import org.ababup1192.after.Equipment;
-import org.ababup1192.after.Room;
-import org.ababup1192.after.RoomRepository;
-import org.ababup1192.before.EquipmentRoom;
-import org.ababup1192.before.EquipmentRoomRepository;
-import org.ababup1192.query.EquipmentRoomMigrateService;
+import org.ababup1192.room.after.RoomService;
+import org.ababup1192.room.after.Equipment;
+import org.ababup1192.room.after.Room;
+import org.ababup1192.room.after.RoomRepository;
+import org.ababup1192.room.before.EquipmentRoom;
+import org.ababup1192.room.before.EquipmentRoomRepository;
+import org.ababup1192.room.query.EquipmentRoomMigrateService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

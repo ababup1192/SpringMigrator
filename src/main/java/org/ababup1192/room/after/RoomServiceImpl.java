@@ -1,4 +1,4 @@
-package org.ababup1192.after;
+package org.ababup1192.room.after;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

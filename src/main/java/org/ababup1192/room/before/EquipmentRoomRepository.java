@@ -1,4 +1,4 @@
-package org.ababup1192.before;
+package org.ababup1192.room.before;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

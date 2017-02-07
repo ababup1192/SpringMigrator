@@ -1,4 +1,4 @@
-package org.ababup1192.after;
+package org.ababup1192.room.after;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -7,19 +7,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface RoomRepository extends PagingAndSortingRepository<Room, Integer> {
+@Transactional
+public interface EquipmentRepository extends PagingAndSortingRepository<Equipment, Integer> {
     // Delete code on production
-    @Query(value = "TRUNCATE TABLE room;", nativeQuery = true)
+    @Query(value = "TRUNCATE TABLE equipment", nativeQuery = true)
     @Modifying
     @Transactional
-    void truncateTable();
+    void truncate();
 
     // Delete code on production
-    @Query(value = "DROP TABLE room;", nativeQuery = true)
+    @Query(value = "DROP TABLE equipment", nativeQuery = true)
     @Modifying
     @Transactional
     void drop();
 
-    List<Room> findAllByOrderByRoomNameAsc();
+    List<Equipment> findByEquipmentName(String equipmentName);
 }
-

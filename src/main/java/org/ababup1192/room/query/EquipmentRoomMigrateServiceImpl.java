@@ -1,8 +1,8 @@
-package org.ababup1192.query;
+package org.ababup1192.room.query;
 
-import org.ababup1192.after.*;
-import org.ababup1192.before.EquipmentRoom;
-import org.ababup1192.before.EquipmentRoomRepository;
+import org.ababup1192.room.after.*;
+import org.ababup1192.room.before.EquipmentRoom;
+import org.ababup1192.room.before.EquipmentRoomRepository;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;

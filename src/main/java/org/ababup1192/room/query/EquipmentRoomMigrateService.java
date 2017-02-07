@@ -1,4 +1,4 @@
-package org.ababup1192.query;
+package org.ababup1192.room.query;
 
 public interface EquipmentRoomMigrateService {
     void migrate();

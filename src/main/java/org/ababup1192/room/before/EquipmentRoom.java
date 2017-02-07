@@ -1,4 +1,4 @@
-package org.ababup1192.before;
+package org.ababup1192.room.before;
 
 import javax.persistence.*;
 import java.io.Serializable;

@@ -1,6 +1,6 @@
 package org.ababup1192;
 
-import org.ababup1192.query.EquipmentRoomMigrateService;
+import org.ababup1192.room.query.EquipmentRoomMigrateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
