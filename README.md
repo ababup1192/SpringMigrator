@@ -21,8 +21,11 @@ $ ./gradlew buildRun
 
 ## Migrator Samples
 
+### Member(Single)
+![member](https://raw.githubusercontent.com/ababup1192/SpringMigrator/master/img/member.png)
+
 ### BookCategory(One To Many)
 ![book-category](https://raw.githubusercontent.com/ababup1192/SpringMigrator/master/img/book_category.png)
 
 ### EquipmentRoom(Many To Many)
-![](https://raw.githubusercontent.com/ababup1192/SpringMigrator/master/img/equipment_room.png)
+![equipment-room](https://raw.githubusercontent.com/ababup1192/SpringMigrator/master/img/equipment_room.png)
