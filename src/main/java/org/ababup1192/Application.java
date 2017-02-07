@@ -27,9 +27,7 @@ public class Application {
 
     public void run(String... args) {
         log.info("Start migration");
-        log.info("----------------");
         equipmentRoomMigrateService.migrate();
-        log.info("----------------");
         log.info("End migration");
     }
 }

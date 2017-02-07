@@ -81,7 +81,7 @@ public class Equipment implements Serializable {
 
     @Override
     public String toString() {
-        return "Equipment{" +
+        return "Category{" +
                 "equipmentId=" + equipmentId +
                 ", equipmentName='" + equipmentName + '\'' +
                 '}';

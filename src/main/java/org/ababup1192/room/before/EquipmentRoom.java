@@ -57,7 +57,7 @@ public class EquipmentRoom implements Serializable {
 
     @Override
     public String toString() {
-        return "EquipmentRoom{" +
+        return "BookCategory{" +
                 "id=" + id +
                 ", roomName='" + roomName + '\'' +
                 ", capacity=" + capacity +

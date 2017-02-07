@@ -1,6 +1,5 @@
 package org.ababup1192.room.query;
 
-import org.ababup1192.after.room.*;
 import org.ababup1192.room.before.EquipmentRoom;
 import org.ababup1192.room.before.EquipmentRoomRepository;
 import org.ababup1192.room.after.*;
@@ -47,7 +46,7 @@ public class EquipmentRoomMigrateServiceImpl implements EquipmentRoomMigrateServ
         });
     }
 
-    // return Equipment in DB if it already exists.
+    // return Category in DB if it already exists.
     private Equipment createEquipment(String equipmentName) {
         return equipmentRepository.findByEquipmentName(equipmentName).stream().
                 findFirst().orElseGet(() -> new Equipment(equipmentName));

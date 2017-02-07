@@ -47,7 +47,6 @@ public class EquipmentRoomMigrationTest {
     @Before
     public void SetUp() {
         equipmentRoomRepository.truncateTable();
-        roomService.truncateRoom();
 
         equipmentRoomRepository.save(equipmentRooms);
         equipmentRoomMigrateService.migrate();
@@ -64,29 +63,29 @@ public class EquipmentRoomMigrationTest {
         List<Room> allRooms = roomRepository.findAllByOrderByRoomNameAsc();
 
         assertThat(allRooms, contains(
-                        new Room("katsura", 1,
-                                Collections.singletonList(
-                                        new Equipment("toothbrush")
-                                )
-                        ),
-                        new Room("sakura", 2,
-                                Arrays.asList(
-                                        new Equipment("fork"),
-                                        new Equipment("spoon")
-                                )
-                        ),
-                        new Room("tsubaki", 3,
-                                Collections.singletonList(
-                                        new Equipment("fork")
-                                )
+                new Room("katsura", 1,
+                        Collections.singletonList(
+                                new Equipment("toothbrush")
                         )
+                ),
+                new Room("sakura", 2,
+                        Arrays.asList(
+                                new Equipment("fork"),
+                                new Equipment("spoon")
+                        )
+                ),
+                new Room("tsubaki", 3,
+                        Collections.singletonList(
+                                new Equipment("fork")
+                        )
+                )
 
                 )
         );
     }
 
     @Test
-    public void joinQueryTest() {
+    public void joinQueryTest() throws Exception {
         List<Room> havingForkRooms = roomService.findByEquipmentName("fork");
 
         assertThat(havingForkRooms, hasItems(

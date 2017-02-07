@@ -99,7 +99,7 @@ public class Room implements Serializable {
 
     @Override
     public String toString() {
-        return "Room{" +
+        return "Book{" +
                 "roomId=" + roomId +
                 ", roomName='" + roomName + '\'' +
                 ", capacity=" + capacity +

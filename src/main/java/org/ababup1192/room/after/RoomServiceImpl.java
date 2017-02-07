@@ -36,7 +36,7 @@ public class RoomServiceImpl implements RoomService {
     public void truncateRoom() {
         entityManager.createNativeQuery("SET foreign_key_checks = 0").executeUpdate();
         entityManager.createNativeQuery("TRUNCATE TABLE quota").executeUpdate();
-        equipmentRepository.truncateTable();
+        equipmentRepository.truncate();
         roomRepository.truncateTable();
         entityManager.createNativeQuery("SET foreign_key_checks = 1").executeUpdate();
     }

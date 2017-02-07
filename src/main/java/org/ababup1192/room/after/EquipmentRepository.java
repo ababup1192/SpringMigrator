@@ -13,7 +13,7 @@ public interface EquipmentRepository extends PagingAndSortingRepository<Equipmen
     @Query(value = "TRUNCATE TABLE equipment", nativeQuery = true)
     @Modifying
     @Transactional
-    void truncateTable();
+    void truncate();
 
     // Delete code on production
     @Query(value = "DROP TABLE equipment", nativeQuery = true)
