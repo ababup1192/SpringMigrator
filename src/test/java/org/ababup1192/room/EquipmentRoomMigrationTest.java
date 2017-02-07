@@ -1,11 +1,12 @@
 package org.ababup1192.room;
 
-import org.ababup1192.after.room.Equipment;
-import org.ababup1192.after.room.Room;
-import org.ababup1192.after.room.RoomService;
-import org.ababup1192.before.room.EquipmentRoom;
-import org.ababup1192.before.room.EquipmentRoomRepository;
-import org.ababup1192.query.room.EquipmentRoomMigrateService;
+import org.ababup1192.room.after.Equipment;
+import org.ababup1192.room.after.Room;
+import org.ababup1192.room.after.RoomRepository;
+import org.ababup1192.room.after.RoomService;
+import org.ababup1192.room.before.EquipmentRoom;
+import org.ababup1192.room.before.EquipmentRoomRepository;
+import org.ababup1192.room.query.EquipmentRoomMigrateService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,15 +15,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.arrayContaining;
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.hasItems;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 public class EquipmentRoomMigrationTest {
+    @Autowired
+    private RoomRepository roomRepository;
     @Autowired
     private EquipmentRoomRepository equipmentRoomRepository;
     @Autowired
@@ -30,28 +36,71 @@ public class EquipmentRoomMigrationTest {
     @Autowired
     private RoomService roomService;
 
+    // Initial data
     private static final List<EquipmentRoom> equipmentRooms = Arrays.asList(
             new EquipmentRoom("sakura", 2, "fork"),
             new EquipmentRoom("sakura", 2, "spoon"),
-            new EquipmentRoom("tsubaki", 3, "fork")
+            new EquipmentRoom("tsubaki", 3, "fork"),
+            new EquipmentRoom("katsura", 1, "toothbrush")
     );
 
     @Before
     public void SetUp() {
         equipmentRoomRepository.truncateTable();
+        roomService.truncateRoom();
+
         equipmentRoomRepository.save(equipmentRooms);
+        equipmentRoomMigrateService.migrate();
+    }
+
+    // Comment out this annotation if you check migrateTest only!!
+    // @After
+    public void tearDown() {
+        roomService.dropRoom();
     }
 
     @Test
     public void migrateTest() {
-        equipmentRoomMigrateService.migrate();
+        List<Room> allRooms = roomRepository.findAllByOrderByRoomNameAsc();
 
-        Room actual = ((List<Room>)roomService.findByEquipmentName("spoon")).get(0);
+        assertThat(allRooms, contains(
+                        new Room("katsura", 1,
+                                Collections.singletonList(
+                                        new Equipment("toothbrush")
+                                )
+                        ),
+                        new Room("sakura", 2,
+                                Arrays.asList(
+                                        new Equipment("fork"),
+                                        new Equipment("spoon")
+                                )
+                        ),
+                        new Room("tsubaki", 3,
+                                Collections.singletonList(
+                                        new Equipment("fork")
+                                )
+                        )
 
-        assertThat(actual.getEquipments(), contains(new Equipment(2, "spoon")));
-        assertThat(actual.getRoomId(), is(1));
-        assertThat(actual.getRoomName(), is("sakura"));
-        assertThat(actual.getCapacity(), is(2));
+                )
+        );
     }
 
+    @Test
+    public void joinQueryTest() {
+        List<Room> havingForkRooms = roomService.findByEquipmentName("fork");
+
+        assertThat(havingForkRooms, hasItems(
+                new Room("sakura", 2,
+                        Arrays.asList(
+                                new Equipment("fork"),
+                                new Equipment("spoon")
+                        )
+                ),
+                new Room("tsubaki", 3,
+                        Collections.singletonList(
+                                new Equipment("fork")
+                        )
+                )
+        ));
+    }
 }

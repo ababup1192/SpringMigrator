@@ -1,6 +1,6 @@
 package org.ababup1192;
 
-import org.ababup1192.query.room.EquipmentRoomMigrateService;
+import org.ababup1192.room.query.EquipmentRoomMigrateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import javax.inject.Inject;
-import java.util.Arrays;
 
 @SpringBootApplication
 public class Application {
