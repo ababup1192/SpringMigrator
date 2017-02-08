@@ -1,9 +1,9 @@
 package org.ababup1192.member.after;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.ababup1192.util.DateUtil;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class NewMember {
@@ -17,18 +17,23 @@ public class NewMember {
     @Column
     private Double weight;
 
+    @Temporal(value = TemporalType.TIMESTAMP)
+    private Date createTime;
+
     public NewMember() {
     }
 
-    public NewMember(String name, Double weight) {
+    public NewMember(String name, Double weight, Date createTime) {
         this.name = name;
         this.weight = weight;
+        this.createTime = createTime;
     }
 
-    public NewMember(Integer id, String name, Double weight) {
+    public NewMember(Integer id,String name, Double weight, Date createTime) {
         this.id = id;
         this.name = name;
         this.weight = weight;
+        this.createTime = createTime;
     }
 
 
@@ -56,6 +61,14 @@ public class NewMember {
         this.weight = weight;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -65,7 +78,8 @@ public class NewMember {
 
         if (id != null ? !id.equals(newMember.id) : newMember.id != null) return false;
         if (name != null ? !name.equals(newMember.name) : newMember.name != null) return false;
-        return weight != null ? weight.equals(newMember.weight) : newMember.weight == null;
+        if (weight != null ? !weight.equals(newMember.weight) : newMember.weight != null) return false;
+        return createTime != null ?  DateUtil.isEqual(createTime, newMember.createTime) : newMember.createTime == null;
 
     }
 
@@ -74,6 +88,7 @@ public class NewMember {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (weight != null ? weight.hashCode() : 0);
+        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         return result;
     }
 
@@ -83,6 +98,7 @@ public class NewMember {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", weight=" + weight +
+                ", createTime=" + createTime +
                 '}';
     }
 }
