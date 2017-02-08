@@ -1,9 +1,6 @@
 package org.ababup1192.member.after;
 
-import org.ababup1192.util.DateUtil;
-
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 public class NewMember {
@@ -17,19 +14,18 @@ public class NewMember {
     @Column
     private Double weight;
 
-    @Temporal(value = TemporalType.TIMESTAMP)
-    private Date createTime;
+    private Long createTime;
 
     public NewMember() {
     }
 
-    public NewMember(String name, Double weight, Date createTime) {
+    public NewMember(String name, Double weight, Long createTime) {
         this.name = name;
         this.weight = weight;
         this.createTime = createTime;
     }
 
-    public NewMember(Integer id,String name, Double weight, Date createTime) {
+    public NewMember(Integer id,String name, Double weight, Long createTime) {
         this.id = id;
         this.name = name;
         this.weight = weight;
@@ -61,11 +57,11 @@ public class NewMember {
         this.weight = weight;
     }
 
-    public Date getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 
@@ -79,7 +75,7 @@ public class NewMember {
         if (id != null ? !id.equals(newMember.id) : newMember.id != null) return false;
         if (name != null ? !name.equals(newMember.name) : newMember.name != null) return false;
         if (weight != null ? !weight.equals(newMember.weight) : newMember.weight != null) return false;
-        return createTime != null ?  DateUtil.isEqual(createTime, newMember.createTime) : newMember.createTime == null;
+        return createTime != null ?  createTime.equals(newMember.createTime) : newMember.createTime == null;
 
     }
 
