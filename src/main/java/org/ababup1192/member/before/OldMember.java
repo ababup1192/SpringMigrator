@@ -1,8 +1,6 @@
 package org.ababup1192.member.before;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class OldMember {
@@ -14,12 +12,16 @@ public class OldMember {
 
     private Integer weight;
 
-    public OldMember(){}
+    @Column(length = 2)
+    private Long createTime;
+
+    public OldMember() {}
 
     public OldMember(String name, Integer weight) {
         this.name = name;
         this.weight = weight;
     }
+
 
     public Integer getId() {
         return id;
@@ -43,6 +45,14 @@ public class OldMember {
 
     public void setWeight(Integer weight) {
         this.weight = weight;
+    }
+
+    public Long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
     }
 
     @Override
@@ -72,6 +82,7 @@ public class OldMember {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", weight=" + weight +
+                ", createTime=" + createTime +
                 '}';
     }
 }
