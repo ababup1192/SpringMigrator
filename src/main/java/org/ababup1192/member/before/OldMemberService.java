@@ -7,5 +7,4 @@ import java.util.List;
 public interface OldMemberService {
     void save(List<OldMember> oldMembers);
     void truncate();
-    void setEnvironment(Environment environment);
 }
