@@ -1,14 +1,11 @@
-package org.ababup1192.book.query;
+package org.ababup1192.book;
 
 import org.ababup1192.book.after.*;
-import org.ababup1192.book.before.BookCategory;
 import org.ababup1192.book.before.BookCategoryRepository;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class BookCategoryMigrateServiceImpl implements BookCategoryMigrateService {

@@ -6,7 +6,7 @@ import org.ababup1192.room.after.Room;
 import org.ababup1192.room.after.RoomRepository;
 import org.ababup1192.room.before.EquipmentRoom;
 import org.ababup1192.room.before.EquipmentRoomRepository;
-import org.ababup1192.room.query.EquipmentRoomMigrateService;
+import org.ababup1192.room.EquipmentRoomMigrateService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

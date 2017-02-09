@@ -1,4 +1,4 @@
-package org.ababup1192.member.query;
+package org.ababup1192.member;
 
 import org.ababup1192.member.after.NewMember;
 import org.ababup1192.member.after.NewMemberRepository;

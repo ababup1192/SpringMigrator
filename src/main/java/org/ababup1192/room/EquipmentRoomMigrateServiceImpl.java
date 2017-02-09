@@ -1,4 +1,4 @@
-package org.ababup1192.room.query;
+package org.ababup1192.room;
 
 import org.ababup1192.room.after.*;
 import org.ababup1192.room.before.EquipmentRoom;

@@ -6,7 +6,7 @@ import org.ababup1192.member.after.NewMemberRepository;
 import org.ababup1192.member.before.OldMember;
 import org.ababup1192.member.before.OldMemberRepository;
 import org.ababup1192.member.before.OldMemberService;
-import org.ababup1192.member.query.MemberMigrateService;
+import org.ababup1192.member.MemberMigrateService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +17,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.List;
 
