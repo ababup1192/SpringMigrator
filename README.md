@@ -29,3 +29,8 @@ $ ./gradlew buildRun
 
 ### EquipmentRoom(Many To Many)
 ![equipment-room](https://raw.githubusercontent.com/ababup1192/SpringMigrator/master/img/equipment_room.png)
+
+### SalesSlip(More Complex)
+![sales-slip](https://raw.githubusercontent.com/ababup1192/SpringMigrator/master/img/sales.png)
+
+
