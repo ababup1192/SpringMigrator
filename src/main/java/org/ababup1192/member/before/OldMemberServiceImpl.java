@@ -20,11 +20,6 @@ public class OldMemberServiceImpl implements OldMemberService {
     }
 
     @Override
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
-    }
-
-    @Override
     public void save(List<OldMember> oldMembers) {
         oldMembers.forEach(oldMember -> oldMember.setCreateTime(environment.getTimeMilliSeconds()));
         oldMemberRepository.save(oldMembers);
