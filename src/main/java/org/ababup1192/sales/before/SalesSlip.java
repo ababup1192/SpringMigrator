@@ -13,8 +13,7 @@ public class SalesSlip implements Serializable {
     private Integer id;
     private String clientName;
     private String address;
-    private Integer commodityNumber;
-    private Integer commodityName;
+    private String commodityName;
     private Integer unitPrice;
     private Integer quantity;
     private Integer total;
@@ -23,12 +22,11 @@ public class SalesSlip implements Serializable {
     public SalesSlip() {
     }
 
-    public SalesSlip(String clientName, String address, Integer commodityNumber,
-                     Integer commodityName, Integer unitPrice, Integer quantity,
+    public SalesSlip(String clientName, String address, String commodityName,
+                     Integer unitPrice, Integer quantity,
                      Integer total, Date date) {
         this.clientName = clientName;
         this.address = address;
-        this.commodityNumber = commodityNumber;
         this.commodityName = commodityName;
         this.unitPrice = unitPrice;
         this.quantity = quantity;
@@ -60,19 +58,11 @@ public class SalesSlip implements Serializable {
         this.address = address;
     }
 
-    public Integer getCommodityNumber() {
-        return commodityNumber;
-    }
-
-    public void setCommodityNumber(Integer commodityNumber) {
-        this.commodityNumber = commodityNumber;
-    }
-
-    public Integer getCommodityName() {
+    public String getCommodityName() {
         return commodityName;
     }
 
-    public void setCommodityName(Integer commodityName) {
+    public void setCommodityName(String commodityName) {
         this.commodityName = commodityName;
     }
 
@@ -118,8 +108,6 @@ public class SalesSlip implements Serializable {
         if (id != null ? !id.equals(salesSlip.id) : salesSlip.id != null) return false;
         if (clientName != null ? !clientName.equals(salesSlip.clientName) : salesSlip.clientName != null) return false;
         if (address != null ? !address.equals(salesSlip.address) : salesSlip.address != null) return false;
-        if (commodityNumber != null ? !commodityNumber.equals(salesSlip.commodityNumber) : salesSlip.commodityNumber != null)
-            return false;
         if (commodityName != null ? !commodityName.equals(salesSlip.commodityName) : salesSlip.commodityName != null)
             return false;
         if (unitPrice != null ? !unitPrice.equals(salesSlip.unitPrice) : salesSlip.unitPrice != null) return false;
@@ -134,7 +122,6 @@ public class SalesSlip implements Serializable {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (clientName != null ? clientName.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (commodityNumber != null ? commodityNumber.hashCode() : 0);
         result = 31 * result + (commodityName != null ? commodityName.hashCode() : 0);
         result = 31 * result + (unitPrice != null ? unitPrice.hashCode() : 0);
         result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
@@ -149,7 +136,6 @@ public class SalesSlip implements Serializable {
                 "id=" + id +
                 ", clientName='" + clientName + '\'' +
                 ", address='" + address + '\'' +
-                ", commodityNumber=" + commodityNumber +
                 ", commodityName=" + commodityName +
                 ", unitPrice=" + unitPrice +
                 ", quantity=" + quantity +

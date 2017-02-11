@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Client implements Serializable{
+public class Client implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -13,10 +13,11 @@ public class Client implements Serializable{
     @Column(length = 20)
     private String name;
     private String address;
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private List<OrderForm> orderForms;
 
-    public Client(){}
+    public Client() {
+    }
 
     public Client(String name, String address) {
         this.name = name;
@@ -47,6 +48,14 @@ public class Client implements Serializable{
         this.address = address;
     }
 
+    public List<OrderForm> getOrderForms() {
+        return orderForms;
+    }
+
+    public void setOrderForms(List<OrderForm> orderForms) {
+        this.orderForms = orderForms;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -54,7 +63,6 @@ public class Client implements Serializable{
 
         Client client = (Client) o;
 
-        if (id != null ? !id.equals(client.id) : client.id != null) return false;
         if (name != null ? !name.equals(client.name) : client.name != null) return false;
         return address != null ? address.equals(client.address) : client.address == null;
 

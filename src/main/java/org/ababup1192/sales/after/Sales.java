@@ -2,14 +2,17 @@ package org.ababup1192.sales.after;
 
 import javax.persistence.*;
 
+@Entity
 public class Sales {
     @Id
     @GeneratedValue
     @Column(name = "id")
     private Integer id;
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_form_id")
     private OrderForm orderForm;
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "commodity_id")
     private Commodity commodity;
     private Integer quantity;
 
@@ -20,6 +23,14 @@ public class Sales {
         this.commodity = commodity;
         this.quantity = quantity;
     }
+
+     public Sales(Integer id, OrderForm orderForm, Commodity commodity, Integer quantity) {
+         this.id = id;
+        this.orderForm = orderForm;
+        this.commodity = commodity;
+        this.quantity = quantity;
+    }
+
 
     @Override
     public boolean equals(Object o) {

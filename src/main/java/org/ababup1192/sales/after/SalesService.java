@@ -6,6 +6,7 @@ import org.ababup1192.member.before.OldMember;
 import java.util.List;
 
 public interface SalesService {
-    void save(Sales sales);
     void truncate();
+    void drop();
+    void save(Sales sales);
 }

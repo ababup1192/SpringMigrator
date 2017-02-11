@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public interface CommodityRepository extends PagingAndSortingRepository<Commodity, Integer> {
     // Delete code on production
     @Query(value = "TRUNCATE TABLE commodity;", nativeQuery = true)
@@ -17,5 +19,7 @@ public interface CommodityRepository extends PagingAndSortingRepository<Commodit
     @Modifying
     @Transactional
     void drop();
+
+    List<Commodity> findByNameAndUnitPrice(String name, Integer unitPrice);
 }
 

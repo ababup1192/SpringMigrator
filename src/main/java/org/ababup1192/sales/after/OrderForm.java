@@ -4,16 +4,18 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class OrderForm {
     @Id
     @GeneratedValue
     @Column(name = "id")
     private Integer id;
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id")
     private Client client;
     private Date date;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "orderForm")
     private List<Sales> salesList;
 
     public OrderForm(){}
@@ -62,16 +64,14 @@ public class OrderForm {
 
         OrderForm orderForm = (OrderForm) o;
 
-        if (id != null ? !id.equals(orderForm.id) : orderForm.id != null) return false;
         if (client != null ? !client.equals(orderForm.client) : orderForm.client != null) return false;
-        return date != null ? date.equals(orderForm.date) : orderForm.date == null;
+        return date != null ? date.getTime() == orderForm.date.getTime() : orderForm.date == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (client != null ? client.hashCode() : 0);
+        int result = client != null ? client.hashCode() : 0;
         result = 31 * result + (date != null ? date.hashCode() : 0);
         return result;
     }

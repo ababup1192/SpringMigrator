@@ -6,32 +6,50 @@ import org.ababup1192.member.before.OldMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @Service
 public class SalesServiceImpl implements SalesService {
-    private final OldMemberRepository oldMemberRepository;
-    private Environment environment;
+    private final EntityManager entityManager;
+    private final SalesRepository salesRepository;
+    private final ClientRepository clientRepository;
+    private final CommodityRepository commodityRepository;
+    private final OrderFormRepository orderFormRepository;
 
     @Autowired
-    public SalesServiceImpl(OldMemberRepository oldMemberRepository, Environment environment) {
-        this.oldMemberRepository = oldMemberRepository;
-        this.environment = environment;
-    }
-
-    @Override
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
-    }
-
-    @Override
-    public void save(List<OldMember> oldMembers) {
-        oldMembers.forEach(oldMember -> oldMember.setCreateTime(environment.getTimeMilliSeconds()));
-        oldMemberRepository.save(oldMembers);
+    public SalesServiceImpl(
+            EntityManager entityManager,
+            SalesRepository salesRepository,
+            ClientRepository clientRepository,
+            CommodityRepository commodityRepository,
+            OrderFormRepository orderFormRepository) {
+        this.entityManager = entityManager;
+        this.salesRepository = salesRepository;
+        this.clientRepository = clientRepository;
+        this.commodityRepository = commodityRepository;
+        this.orderFormRepository = orderFormRepository;
     }
 
     @Override
     public void truncate() {
-        oldMemberRepository.truncate();
+        entityManager.createNativeQuery("SET foreign_key_checks = 0").executeUpdate();
+        clientRepository.truncate();
+        commodityRepository.truncate();
+        orderFormRepository.truncate();
+        salesRepository.truncate();
+        entityManager.createNativeQuery("SET foreign_key_checks = 1").executeUpdate();
     }
+
+    @Override
+    public void drop() {
+        salesRepository.drop();
+    }
+
+    @Override
+    public void save(Sales sales) {
+        salesRepository.save(sales);
+    }
+
+
 }

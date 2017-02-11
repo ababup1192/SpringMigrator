@@ -1,10 +1,12 @@
 package org.ababup1192.sales.after;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.List;
 
+@Entity
 public class Commodity {
     @Id
     @GeneratedValue
@@ -53,7 +55,6 @@ public class Commodity {
 
         Commodity commodity = (Commodity) o;
 
-        if (id != null ? !id.equals(commodity.id) : commodity.id != null) return false;
         if (name != null ? !name.equals(commodity.name) : commodity.name != null) return false;
         return unitPrice != null ? unitPrice.equals(commodity.unitPrice) : commodity.unitPrice == null;
 
@@ -61,8 +62,7 @@ public class Commodity {
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (unitPrice != null ? unitPrice.hashCode() : 0);
         return result;
     }
