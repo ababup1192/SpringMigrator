@@ -77,10 +77,13 @@ public class MemberMigrationTest {
     public void migrateTest() {
         List<NewMember> members = newMemberRepository.findAll();
 
+        assertThat(true, is(false));
+        /*
         assertThat(members, contains(
                 new NewMember(1, NAME1, WEIGHT1.doubleValue(), DUMMY_TIME),
                 new NewMember(2, NAME2, WEIGHT2.doubleValue(), DUMMY_TIME),
                 new NewMember(3, NAME3, WEIGHT3.doubleValue(), DUMMY_TIME)
         ));
+        */
     }
 }
