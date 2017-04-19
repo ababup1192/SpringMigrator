@@ -25,8 +25,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
+// @RunWith(SpringJUnit4ClassRunner.class)
+// @SpringBootTest
 public class MemberMigrationTest {
     @Autowired
     private OldMemberRepository oldMemberRepository;
@@ -58,7 +58,7 @@ public class MemberMigrationTest {
     private Environment environment;
 
     // Initial data
-    @Before
+    // @Before
     public void SetUp() {
         oldMemberRepository.truncate();
 
@@ -74,7 +74,7 @@ public class MemberMigrationTest {
         newMemberRepository.drop();
     }
 
-    @Test
+    // @Test
     public void migrateTest() {
         List<NewMember> members = newMemberRepository.findAll();
 

@@ -3,6 +3,26 @@ package org.ababup1192.sales.after;
 import javax.persistence.*;
 
 @Entity
+@NamedEntityGraph(
+        name = "sales.graph",
+        attributeNodes = {
+                @NamedAttributeNode("quantity"),
+                @NamedAttributeNode(value = "orderForm", subgraph = "orderForm"),
+                @NamedAttributeNode(value = "commodity", subgraph = "commodity")
+        }, subgraphs = {
+        @NamedSubgraph(name = "orderForm", attributeNodes = {
+                @NamedAttributeNode(value = "client", subgraph = "client")
+        }),
+        @NamedSubgraph(name = "client", attributeNodes = {
+                @NamedAttributeNode(value = "name"),
+                @NamedAttributeNode(value = "address")
+        }),
+        @NamedSubgraph(name = "commodity", attributeNodes = {
+                @NamedAttributeNode("name"),
+                @NamedAttributeNode("unitPrice")
+        })
+}
+)
 public class Sales {
     @Id
     @GeneratedValue
@@ -10,13 +30,14 @@ public class Sales {
     private Integer id;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_form_id")
-    private OrderForm orderForm;
+    public OrderForm orderForm;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "commodity_id")
     private Commodity commodity;
     private Integer quantity;
 
-    public Sales(){}
+    public Sales() {
+    }
 
     public Sales(OrderForm orderForm, Commodity commodity, Integer quantity) {
         this.orderForm = orderForm;
@@ -24,8 +45,8 @@ public class Sales {
         this.quantity = quantity;
     }
 
-     public Sales(Integer id, OrderForm orderForm, Commodity commodity, Integer quantity) {
-         this.id = id;
+    public Sales(Integer id, OrderForm orderForm, Commodity commodity, Integer quantity) {
+        this.id = id;
         this.orderForm = orderForm;
         this.commodity = commodity;
         this.quantity = quantity;

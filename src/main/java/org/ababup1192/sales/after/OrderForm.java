@@ -12,7 +12,7 @@ public class OrderForm {
     private Integer id;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
-    private Client client;
+    public Client client;
     private Date date;
 
     @OneToMany(mappedBy = "orderForm")

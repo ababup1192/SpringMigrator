@@ -24,8 +24,8 @@ import static org.hamcrest.Matchers.arrayContaining;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasItems;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
+// @RunWith(SpringJUnit4ClassRunner.class)
+// @SpringBootTest
 public class EquipmentRoomMigrationTest {
     @Autowired
     private RoomRepository roomRepository;
@@ -44,7 +44,7 @@ public class EquipmentRoomMigrationTest {
             new EquipmentRoom("katsura", 1, "toothbrush")
     );
 
-    @Before
+    // @Before
     public void SetUp() {
         equipmentRoomRepository.truncate();
 
@@ -58,7 +58,7 @@ public class EquipmentRoomMigrationTest {
         roomService.dropRoom();
     }
 
-    @Test
+    // @Test
     public void migrateTest() {
         List<Room> allRooms = roomRepository.findAllByOrderByRoomNameAsc();
 
@@ -84,7 +84,7 @@ public class EquipmentRoomMigrationTest {
         );
     }
 
-    @Test
+    // @Test
     public void joinQueryTest() throws Exception {
         List<Room> havingForkRooms = roomService.findByEquipmentName("fork");
 

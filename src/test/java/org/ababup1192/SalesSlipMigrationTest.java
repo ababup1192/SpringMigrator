@@ -8,10 +8,16 @@ import org.ababup1192.sales.before.SalesSlipRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.persistence.EntityGraph;
+import javax.persistence.EntityManager;
+import javax.persistence.Subgraph;
+import javax.persistence.TypedQuery;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Arrays;
@@ -32,7 +38,10 @@ public class SalesSlipMigrationTest {
     private SalesService salesService;
     @Autowired
     private SalesRepository salesRepository;
+    @Autowired
+    private EntityManager em;
 
+    private static final Logger log = LoggerFactory.getLogger(SalesSlipMigrationTest.class);
 
     private static final String CLIENT_NAME1 = "Mike";
     private static final String CLIENT_NAME2 = "Alice";
@@ -84,7 +93,21 @@ public class SalesSlipMigrationTest {
 
     @Test
     public void migrateTest() {
-        final List<Sales> salesList = salesRepository.findAll();
+        log.debug("Begin Find All");
+        // final List<Sales> salesList = salesRepository.findAll();
+        EntityGraph<Sales> graph = em.createEntityGraph(Sales.class);
+        graph.addAttributeNodes("quantity", "orderForm", "commodity");
+        Subgraph<OrderForm> orderForm = graph.addSubgraph("orderForm");
+        orderForm.addAttributeNodes("date", "client");
+        Subgraph<Client> client = orderForm.addSubgraph("client");
+        client.addAttributeNodes("name", "address");
+        Subgraph<Commodity> commodity = graph.addSubgraph("commodity");
+        commodity.addAttributeNodes("name", "unitPrice");
+
+        TypedQuery<Sales> query = em.createQuery("SELECT s FROM Sales s", Sales.class);
+        query.setHint("javax.persistence.fetchgraph", graph);
+        final List<Sales> salesList = query.getResultList();
+        log.debug("End Find All");
 
         final Client client1 = new Client(CLIENT_NAME1, ADDRESS1);
         final Client client2 = new Client(CLIENT_NAME2, ADDRESS2);
@@ -94,6 +117,8 @@ public class SalesSlipMigrationTest {
         final Commodity commodity1 = new Commodity(COMMODITY_NAME1, UNIT_PRICE1);
         final Commodity commodity2 = new Commodity(COMMODITY_NAME2, UNIT_PRICE2);
         final Commodity commodity3 = new Commodity(COMMODITY_NAME3, UNIT_PRICE3);
+
+        salesList.forEach(sales -> System.out.println("" + sales.orderForm.client.getId()));
 
         assertThat(salesList, contains(
                 new Sales(1,

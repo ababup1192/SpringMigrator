@@ -13,7 +13,7 @@ public class Client implements Serializable {
     @Column(length = 20)
     private String name;
     private String address;
-    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "client")
     private List<OrderForm> orderForms;
 
     public Client() {

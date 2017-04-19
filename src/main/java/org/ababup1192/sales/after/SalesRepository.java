@@ -20,6 +20,7 @@ public interface SalesRepository extends PagingAndSortingRepository<Sales, Integ
     @Transactional
     void drop();
 
+    @Query("SELECT DISTINCT s FROM Sales s JOIN FETCH s.orderForm o JOIN FETCH o.client JOIN FETCH s.commodity")
     List<Sales> findAll();
 }
 

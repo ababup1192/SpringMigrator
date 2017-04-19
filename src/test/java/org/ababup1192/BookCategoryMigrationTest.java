@@ -21,8 +21,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
+// @RunWith(SpringJUnit4ClassRunner.class)
+// @SpringBootTest
 public class BookCategoryMigrationTest {
     @Autowired
     private BookCategoryRepository bookCategoryRepository;
@@ -46,7 +46,7 @@ public class BookCategoryMigrationTest {
 
     );
 
-    @Before
+    // @Before
     public void SetUp() {
         bookCategoryRepository.truncateTable();
 
@@ -60,7 +60,7 @@ public class BookCategoryMigrationTest {
         bookService.dropBook();
     }
 
-    @Test
+    // @Test
     public void migrateTest() {
         List<Book> allBooks = bookService.findAll();
 
@@ -73,7 +73,7 @@ public class BookCategoryMigrationTest {
         );
     }
 
-    @Test
+    // @Test
     public void joinQueryTest() throws Exception {
         List<Book> havingForkRooms = bookService.findByCategoryName("Coding");
 
